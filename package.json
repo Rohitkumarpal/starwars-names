@@ -1,14 +1,21 @@
 {
-  "name": "starwars-names",
-  "version": "1.0.0",
+  "name": "starwars-names-rohit",
+  "version": "0.0.0-development",
   "description": "Get random star wars names",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "commit": "git-cz",
+    "watch:test": "npm t -- --watch",
+    "test": "mocha src/index.test.js --require @babel/register",
+    "test:single": "mocha src/index.test.js",
+    "cover": "nyc npm t",
+    "prebuild": "rimraf dist",
+    "build": "babel --copy-files --out-dir  dist --ignore *.test.js src",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rohitkumarpal/starwars-names.git"
+    "url": "https://github.com/Rohitkumarpal/starwars-names.git"
   },
   "keywords": [
     "random",
@@ -22,6 +29,51 @@
   },
   "homepage": "https://github.com/Rohitkumarpal/starwars-names#readme",
   "dependencies": {
+    "semantic-release-cli": "5.4.4",
     "unique-random-array": "3.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.17.10",
+    "@babel/preset-env": "7.17.10",
+    "@babel/preset-react": "7.16.7",
+    "@babel/register": "7.17.7",
+    "babel-cli": "6.26.0",
+    "babel-loader": "7.1.5",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-stage-2": "6.24.1",
+    "babel-register": "6.26.0",
+    "chai": "4.3.6",
+    "commitizen": "4.2.4",
+    "cz-conventional-changelog": "3.3.0",
+    "ghooks": "2.0.4",
+    "mocha": "10.0.0",
+    "nyc": "15.1.0",
+    "rimraf": "3.0.2",
+    "webpack": "5.72.1",
+    "webpack-cli": "4.9.2",
+    "semantic-release": "^19.0.2"
+  },
+  "czConfig": {
+    "path": "node_modules/cz-conventional-changelog"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run test:single"
+    }
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2",
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "transform-class-properties",
+      "transform-object-rest-spread"
+    ]
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }
